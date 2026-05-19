@@ -1,0 +1,282 @@
+/* style.css — StudentMeet 공통 스타일 */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap');
+
+/* ── CSS 변수 ── */
+:root {
+  --bg:          #f5f4f0;
+  --surface:     #ffffff;
+  --border:      #e4e2db;
+  --text-1:      #18181a;
+  --text-2:      #5a5a60;
+  --text-3:      #9e9ea6;
+  --accent:      #4f6ef7;
+  --accent-dark: #3a56d4;
+  --accent-soft: #eef1fe;
+  --green:       #16a34a;
+  --green-soft:  #dcfce7;
+  --red:         #dc2626;
+  --red-soft:    #fee2e2;
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --shadow-sm:   0 1px 4px rgba(0,0,0,.06);
+  --shadow-md:   0 4px 16px rgba(0,0,0,.09);
+  --t:           .16s ease;
+}
+
+/* ── 리셋 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html  { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body  { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text-1); line-height: 1.6; }
+img   { display: block; max-width: 100%; }
+button{ font-family: inherit; cursor: pointer; border: none; background: none; }
+a     { text-decoration: none; color: inherit; }
+ul    { list-style: none; }
+
+/* ── 레이아웃 ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ════════════════════════════════════════
+   공통 — 헤더
+   ════════════════════════════════════════ */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  height: 62px; gap: 14px;
+}
+.logo { font-size: 17px; font-weight: 900; color: var(--accent); letter-spacing: -.4px; white-space: nowrap; }
+.logo em { color: var(--text-1); font-style: normal; }
+
+/* ── 검색창 ── */
+.search-wrap {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 8px 14px; width: 260px;
+  transition: border-color var(--t);
+}
+.search-wrap:focus-within { border-color: var(--accent); }
+.search-wrap svg   { flex-shrink: 0; color: var(--text-3); }
+.search-wrap input {
+  border: none; background: none; font-family: inherit;
+  font-size: 14px; color: var(--text-1); width: 100%; outline: none;
+}
+.search-wrap input::placeholder { color: var(--text-3); }
+
+/* ── 헤더 아이콘 버튼 ── */
+.notif-btn {
+  position: relative; display: flex; align-items: center;
+  justify-content: center; width: 40px; height: 40px;
+  border-radius: 50%; border: 1px solid var(--border);
+  color: var(--text-2); background: var(--surface);
+  transition: all var(--t);
+}
+.notif-btn:hover { border-color: var(--accent); color: var(--accent); }
+.notif-badge {
+  position: absolute; top: 7px; right: 7px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red); border: 1.5px solid var(--surface);
+}
+
+/* ════════════════════════════════════════
+   화면 1 — 추천 학생 목록 (index.html)
+   ════════════════════════════════════════ */
+
+/* ── 히어로 배너 ── */
+.hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 0;
+}
+.hero-step {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  background: var(--accent-soft); padding: 4px 12px;
+  border-radius: 99px; margin-bottom: 8px;
+}
+.hero h1 { font-size: 22px; font-weight: 900; letter-spacing: -.4px; }
+.hero p  { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+
+/* ── 필터 바 ── */
+.filter-bar { display: flex; gap: 8px; margin: 24px 0 18px; flex-wrap: wrap; }
+
+.filter-btn {
+  padding: 7px 18px; border-radius: 99px;
+  font-size: 13px; font-weight: 600;
+  border: none; cursor: pointer; transition: all var(--t);
+}
+.filter-btn--on  { background: var(--accent); color: #fff; }
+.filter-btn--off { background: #eceff0; color: #6B6B6B; } 
+
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: 18px; padding-bottom: 60px;
+}
+
+
+.student-card {
+  background: var(--surface); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  cursor: pointer; overflow: hidden;
+  transition: box-shadow var(--t), transform var(--t);
+}
+.student-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+/* 카드 상단 커버 */
+.card-cover { height: 110px; overflow: hidden; background: #e2e8f0; }
+.card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.student-card:hover .card-cover img { transform: scale(1.07); }
+
+.card-body { padding: 14px 16px 16px; }
+.card-avatar-row {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  margin-top: -30px; margin-bottom: 8px;
+}
+.card-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 3px solid var(--surface);
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 18px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.match-badge {
+  font-size: 12px; font-weight: 700; color: var(--text-2);
+  background: #eceff0; padding: 3px 10px; border-radius: 99px;
+}
+.card-name { font-size: 15px; font-weight: 700; }
+.card-dept { font-size: 12px; color: var(--text-2); margin-top: 1px; }
+.card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+.card-tag  {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  background: var(--accent-soft); padding: 2px 9px; border-radius: 99px;
+}
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+.card-q-count { font-size: 12px; color: var(--text-2); }
+
+.answer-link-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  border: none; cursor: pointer; transition: all var(--t);
+}
+.answer-link-btn:hover { background: var(--accent); color: #fff; }
+
+/* ── 빈 상태 ── */
+.empty-state {
+  grid-column: 1/-1; text-align: center;
+  padding: 80px 0; color: var(--text-3);
+}
+.empty-state p { font-size: 15px; margin-top: 12px; }
+
+/* ════════════════════════════════════════
+   화면 2 — 답변 열람 (answers.html)
+   ════════════════════════════════════════ */
+
+/* ── 뒤로가기 ── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--text-2); cursor: pointer; padding: 4px 0;
+  transition: color var(--t);
+}
+.back-btn:hover { color: var(--text-1); }
+
+/* ── 학생 프로필 헤더 ── */
+.profile-header {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--surface); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); padding: 20px 24px; margin: 20px 0 28px;
+}
+.profile-avatar {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 26px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.profile-name { font-size: 19px; font-weight: 900; }
+.profile-dept { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+.profile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.profile-tag  {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  background: var(--accent-soft); padding: 3px 10px; border-radius: 99px;
+}
+.profile-match {
+  margin-left: auto; text-align: center; flex-shrink: 0;
+}
+.profile-match__num   { font-size: 30px; font-weight: 900; color: var(--green); }
+.profile-match__label { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* ── 탭 바 ── */
+.tab-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+
+.tab-btn {
+  padding: 9px 22px; border-radius: 99px;
+  font-size: 14px; font-weight: 600;
+  border: none; cursor: pointer; transition: all var(--t);
+}
+.tab-btn--on  { background: var(--accent); color: #fff; }
+.tab-btn--off { background: #cbd5e1; color: #ffffff; }
+
+/* ── 질문 + 답변 카드 ── */
+.q-section { margin-bottom: 30px; }
+.q-label {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--accent-soft); border-radius: var(--radius-md);
+  padding: 13px 18px; margin-bottom: 12px;
+}
+.q-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.q-text { font-size: 15px; font-weight: 600; color: var(--accent-dark); }
+
+.answer-card {
+  background: var(--surface); border-radius: var(--radius-md);
+  border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 10px;
+}
+.answer-card__hd  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.answer-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.answer-author { font-size: 14px; font-weight: 700; }
+.answer-date   { font-size: 12px; color: var(--text-3); margin-left: auto; }
+.answer-body   { font-size: 14px; color: var(--text-2); line-height: 1.8; }
+
+/* ── 메모 입력 ── */
+.memo-box {
+  background: var(--surface); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 60px;
+}
+.memo-box h2 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+
+.memo-textarea {
+  width: 100%; min-height: 96px; resize: vertical;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-family: inherit; font-size: 14px;
+  color: var(--text-1); background: var(--bg); outline: none;
+  transition: border-color var(--t);
+}
+.memo-textarea:focus { border-color: var(--accent); }
+.memo-save-btn {
+  margin-top: 10px; padding: 10px 24px;
+  background: var(--accent); color: #fff;
+  border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
+  transition: background var(--t);
+}
+.memo-save-btn:hover { background: var(--accent-dark); }
